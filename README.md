@@ -1,4 +1,4 @@
-# LEETWiki by HeistLEET TARGET SHIP DATE: {2025-11-30}
+# Wikisportipedia by HeistLEET
 Rohan Sen - PM <br>
 Haowen Xiao - Backend <br>
 Michelle Chen - Frontend/Design <br>
