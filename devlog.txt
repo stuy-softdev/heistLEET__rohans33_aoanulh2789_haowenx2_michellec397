@@ -1,0 +1,6 @@
+10/22/25:
+- Repo created, linked to the original
+- readme.md created, header added with the due date
+- flag added, national emblem of Uzbekistan chosen as representative
+
+
