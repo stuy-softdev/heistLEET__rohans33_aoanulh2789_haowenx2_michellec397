@@ -1,4 +1,4 @@
-# LEETWiki by HeistLEET TARGET SHIP DATE: {2025-11-31}
+# LEETWiki by HeistLEET TARGET SHIP DATE: {2025-11-30}
 Rohan Sen - PM <br>
 Haowen Xiao - Backend <br>
 Michelle Chen - Frontend/Design <br>
