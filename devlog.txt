@@ -1,3 +1,6 @@
+RohanS -- 2025-10-24 01:24 INITIAL DD REVIEW
+- From our feedback we've reached the general consensus as a team that we have too much data and too few visual aids. We have an information-dense design doc, which in and of itself isn't the issue, but the readability of our doc is where we struggled. For our new design doc (since the project changed) we'll have to make sure to add better formatting and more graphics. There were some other smaller issues as well but most were small mistakes that we can fix quickly.
+
 RohanS -- 2025-10-23 01:22
 - Devlog fixed to adhere to formatting :)
 - First iteration of the design document finished, initial plan for the website conceived.
