@@ -13,7 +13,6 @@ Rohanspace allows you to create an account to create blogs and publish them for 
 - If all directories are installed, congrats you've installed rohanspace onto your local machine.
 
 # Launch Codes:
-
 ## First Option:
 - Open up the app directory into the Python IDE of your choice (Make sure the IDE can run files)
 - Go into `__init__.py` and run the file.
