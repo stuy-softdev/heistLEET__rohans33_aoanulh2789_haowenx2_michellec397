@@ -1,3 +1,6 @@
+RohanS -- 2025-10-27 11:34
+- Fixed some proofreading errors within our design doc. The bulk of our criticisms within our design doc were centered around different formatting/factual issues which should hopefully be cleared up now. Presently the team is working on a better looking design doc.
+
 RohanS -- 2025-10-27 01:02
 - Design doc updated to match the new requirements for option delta.
 
