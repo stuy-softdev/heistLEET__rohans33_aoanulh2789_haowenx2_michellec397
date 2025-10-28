@@ -16,9 +16,9 @@ Rohanspace allows you to create an account to create blogs and publish them for 
 
 # First Option:
 - Open up the app directory into the Python IDE of your choice (Make sure the IDE can run files)
-- Go into __init__.py and run the file.
+- Go into `__init__.py` and run the file.
 
 # Second Option:
 - Open up terminal and route to app directory in rohanspace
-- Run command: python3 __init__.py
+- Run command: python3 `__init__.py`
 
