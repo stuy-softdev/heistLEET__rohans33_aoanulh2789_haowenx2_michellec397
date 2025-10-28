@@ -1,23 +1,27 @@
-RohanS -- 2025-10-27 11:34
-- Fixed some proofreading errors within our design doc. The bulk of our criticisms within our design doc were centered around different formatting/factual issues which should hopefully be cleared up now. Presently the team is working on a better looking design doc.
+RohanS -- 2025-10-22 00:24
+- Repo created, linked to the original
+- readme.md created, header added with the due date
+- flag added, national emblem of Uzbekistan chosen as representative
 
-RohanS -- 2025-10-27 01:02
-- Design doc updated to match the new requirements for option delta.
-
-RohanS -- 2025-10-24 01:24 INITIAL DD REVIEW
-- From our feedback we've reached the general consensus as a team that we have too much data and too few visual aids. We have an information-dense design doc, which in and of itself isn't the issue, but the readability of our doc is where we struggled. For our new design doc (since the project changed) we'll have to make sure to add better formatting and more graphics. There were some other smaller issues as well but most were small mistakes that we can fix quickly.
+RohanS -- 2025-10-22 11:45
+- Design doc brainstormed, initial work
 
 RohanS -- 2025-10-23 01:22
 - Devlog fixed to adhere to formatting :)
 - First iteration of the design document finished, initial plan for the website conceived.
 - Vague roadmap created for each member, dependent on the actual due date of course.
 
-RohanS -- 2025-10-22 11:45
-- Design doc brainstormed, initial work
+RohanS -- 2025-10-24 01:24 INITIAL DD REVIEW
+- From our feedback we've reached the general consensus as a team that we have too much data and too few visual aids. We have an information-dense design doc, which in and of itself isn't the issue, but the readability of our doc is where we struggled. For our new design doc (since the project changed) we'll have to make sure to add better formatting and more graphics. There were some other smaller issues as well but most were small mistakes that we can fix quickly.
 
-RohanS -- 2025-10-22 00:24
-- Repo created, linked to the original
-- readme.md created, header added with the due date
-- flag added, national emblem of Uzbekistan chosen as representative
+RohanS -- 2025-10-27 01:02
+- Design doc updated to match the new requirements for option delta.
 
+RohanS -- 2025-10-27 11:34
+- Fixed some proofreading errors within our design doc. The bulk of our criticisms within our design doc were centered around different formatting/factual issues which should hopefully be cleared up now. Presently the team is working on a better looking design doc.
 
+HaowenX -- 2025-10-28 11:31
+- Fixed Design doc
+- Got started on the app, it can run, its a "functional app".
+- Michelle working on diagram, finished the description of the website/app
+- Araf doing the Guides on both install and how to run the app.
