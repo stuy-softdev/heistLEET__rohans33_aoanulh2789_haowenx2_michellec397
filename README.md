@@ -1,5 +1,5 @@
-# Wikisportipedia by HeistLEET
+# Rohanspace by HeistLEET
 Rohan Sen - PM <br>
-Haowen Xiao - Backend <br>
-Michelle Chen - Frontend/Design <br>
+Haowen Xiao - Frontend/Design <br>
+Michelle Chen - Backend <br>
 Aoanul Hoque - Bug fixing, feature testing
