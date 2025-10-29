@@ -8,9 +8,12 @@ Description of Website/App:
 Rohanspace allows you to create an account to create blogs and publish them for other users. Users will be able to search and edit past blogs. All that is needed is an email and password of your choice, and you can sign up to Rohanspace for free.
 
 # Install Guide:
-- git clone the ssh link onto local computer (reccomended to clone it into your desktop folder for easy access)
-- Make sure all directories are installed onto local machine
-- If all directories are installed, congrats you've installed rohanspace onto your local machine.
+1) git clone the ssh link (`git@github.com:stuy-softdev/heistLEET__rohans33_aoanulh2789_haowenx2_michellec397.git`) onto local computer (reccomended to clone it into your desktop folder for easy access)
+2) Navigate into Git Repo installed. Then navigate into `app` directory via `cd app`
+3) Create a virtual enviornment: `python3 -m venv venv`
+4) Activate the virtual enviornment: `venv/bin`. Then `source activate`
+5) Install the dependencies `pip install -r requirements.txt`
+
 
 # Launch Codes:
 ## First Option:
