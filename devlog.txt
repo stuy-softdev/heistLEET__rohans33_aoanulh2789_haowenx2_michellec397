@@ -24,4 +24,10 @@ HaowenX -- 2025-10-28 11:31
 - Fixed Design doc
 - Got started on the app, it can run, its a "functional app".
 - Michelle working on diagram, finished the description of the website/app
-- Araf doing the Guides on both install and how to run the app.
+- Aoanul doing the Guides on both install and how to run the app.
+
+AoanulH -- 2025-10-29 11:44
+[External Readme Review]
+- Fixed Michelles error with running flask
+- Sub PM Aoanul revised install guide to show how to install required python dependencies, and create a virtual enviornment to run Rohanspace.
+- Created requirements.txt to put in required python dependencies to run our app.
