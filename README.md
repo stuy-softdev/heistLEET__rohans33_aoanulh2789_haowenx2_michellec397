@@ -5,7 +5,7 @@ Michelle Chen - Backend <br>
 Aoanul Hoque - Bug fixing, feature testing <br>
 
 Description of Website/App:
-Rohanspace allows you to create an account to create blogs and publish them for other users, including guests, to view. Users are able to search, edit, and publish past blogs. 
+Rohanspace allows you to create an account to create blogs and publish them for other users. Users will be able to search and edit past blogs. All that is needed is an email and password of your choice, and you can sign up to Rohanspace for free.
 
 # Install Guide:
 - git clone the ssh link onto local computer (reccomended to clone it into your desktop folder for easy access)
