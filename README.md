@@ -9,7 +9,7 @@ Rohanspace allows you to create an account to create blogs and publish them for 
 
 # Install Guide:
 1) git clone the ssh link (`git@github.com:stuy-softdev/heistLEET__rohans33_aoanulh2789_haowenx2_michellec397.git`) onto local computer (reccomended to clone it into your desktop folder for easy access)
-2) Navigate into Git Repo installed. Then navigate into `app` directory via `cd app`
+2) Navigate into Git Repo installed using `cd [directory]`. Then navigate into `app` directory via `cd app`
 3) Create a virtual enviornment: `python3 -m venv venv`
 4) Activate the virtual enviornment: `venv/bin`. Then `source activate`
 5) Install the dependencies `pip install -r requirements.txt`
@@ -22,5 +22,5 @@ Rohanspace allows you to create an account to create blogs and publish them for 
 
 ## Second Option:
 - Open up terminal and route to app directory in rohanspace
-- Run command: `python3 __init__.py`
+- Run command: `python3 __init__.py` or `python __init__.py`
 
