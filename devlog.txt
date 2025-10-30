@@ -31,3 +31,10 @@ AoanulH -- 2025-10-29 11:44
 - Fixed Michelles error with running flask
 - Sub PM Aoanul revised install guide to show how to install required python dependencies, and create a virtual enviornment to run Rohanspace.
 - Created requirements.txt to put in required python dependencies to run our app.
+
+AoanulH -- 2025-10-30 11:40
+- Verified that flask is installed and the dependencies are listed in requirements.txt
+- Michelle expanded on the projected description
+- Created multiple html pages (working on it)
+- Began SQLite (to store login information)
+- Imported classwork as base code
