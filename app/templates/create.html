@@ -1,0 +1,30 @@
+<!Doctype html>
+<html>
+  <head>
+    <title> Create Page </title>
+  </head>
+  <body>
+    <h1> User's Blogs </h1>
+    <br>
+    <h4> Start writing your blog: </h4>
+    <form method="post">
+    <div class="form-group">
+        <label for="title">Title:</label>
+      <br>
+        <input type="text" name="title"
+               placeholder="Post title" class="form-control"
+               value="{{ request.form['title'] }}"></input>
+    </div>
+
+    <div class="form-group">
+      <label for="content">Content:</label>
+      <br>
+        <textarea name="content" placeholder="Post content" class="form-control" cols=40 rows=10 required>{{ request.form['content'] }}</textarea>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
+
+  </body>
+</html>
