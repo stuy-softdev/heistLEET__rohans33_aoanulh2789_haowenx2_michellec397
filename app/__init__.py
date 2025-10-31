@@ -10,6 +10,7 @@ from flask import render_template  # facilitate jinja templating
 from flask import request, redirect, url_for  # facilitate form submission
 from flask import session
 import sqlite3
+from cryptography.fernet import Fernet as crypt
 
 DB_FILE="discobandit.db"
 
@@ -21,7 +22,13 @@ c.execute("create table if not exists courses(code text, mark integer, id intege
 
 app = Flask(__name__)  # create Flask object
 app.secret_key = b'sixseven'
+c = crypt("sixseven")
 
+def fetch_creds(usr, pass_unc):
+    accounts = c.execute(f"select name from students where username = {usr} and password = {c.encrypt(pass_unc)};")
+    if len(accounts = 0):
+        return -1
+    return accounts[0]
 
 @app.route("/", methods=['GET', 'POST'])
 def response():
@@ -38,6 +45,7 @@ def login():
     if request.method == 'POST':
         session.permanent = True
         session['username'] = request.form['id']
+        
         return redirect(url_for('home'))
     else:
         return render_template('login.html')
