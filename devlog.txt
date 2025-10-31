@@ -38,3 +38,8 @@ AoanulH -- 2025-10-30 11:40
 - Created multiple html pages (working on it)
 - Began SQLite (to store login information)
 - Imported classwork as base code
+
+RohanS -- 2025-10-31 11:54
+- Missing members so less work was possible
+- I worked on the authentication into the sql server and encryption for the pass.
+- Michelle wrote the html for the create post page
