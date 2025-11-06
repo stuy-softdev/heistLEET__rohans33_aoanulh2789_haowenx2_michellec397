@@ -25,10 +25,16 @@ app.secret_key = b'sixseven'
 key = crypt.generate_key()
 crypto = crypt(key)
 def fetch_creds(usr, pass_unc):
-    accounts = c.execute(f"select name from students where username = {usr} and password = {crypto.encrypt(pass_unc)};")
+    accounts = c.execute(f"select name from account where username = {usr} and password = {crypto.encrypt(pass_unc)};")
     if len(accounts = 0):
-        return -1
-    return accounts[0]
+        return 0
+    return 1
+
+def set_creds(usr, pass_unc):
+    accounts = c.execute(f"insert into account values (username, password)({usr}, {crypto.encrypt(pass_unc)};")
+    if len(accounts = 0):
+        return 0
+    return 1
 
 @app.route("/", methods=['GET', 'POST'])
 def response():
@@ -43,10 +49,13 @@ def login():
     if 'username' in session:
         return redirect(url_for('home'))
     if request.method == 'POST':
-        session.permanent = True
-        session['username'] = request.form['id']
-
-        return redirect(url_for('home'))
+        if (fetch_creds()):
+            session.permanent = True
+            session['username'] = request.form['id']
+            session['password'] = crypto.encrypt(request.form['pass'])
+            return redirect(url_for('home'))
+        else:
+            return redirect(url_for('login'))
     else:
         return render_template('login.html')
 
