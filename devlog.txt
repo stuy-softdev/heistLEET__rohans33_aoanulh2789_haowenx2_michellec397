@@ -27,7 +27,6 @@ HaowenX -- 2025-10-28 11:31
 - Aoanul doing the Guides on both install and how to run the app.
 
 AoanulH -- 2025-10-29 11:44
-[External Readme Review]
 - Fixed Michelles error with running flask
 - Sub PM Aoanul revised install guide to show how to install required python dependencies, and create a virtual enviornment to run Rohanspace.
 - Created requirements.txt to put in required python dependencies to run our app.
@@ -43,3 +42,11 @@ RohanS -- 2025-10-31 11:54
 - Missing members so less work was possible
 - I worked on the authentication into the sql server and encryption for the pass.
 - Michelle wrote the html for the create post page
+
+AoanulH -- 2025-11-5 8:58
+[External Readme Review]
+- Fixed issues with the README file
+- Made install guide more specific and showcases how to navigate to our directory
+- Revised steps on how to activate users virtual enviornment (more descriptive)
+- Revised step on how to install required dependencies (install guide stated the wrong directory for where the requirements.txt file was located)
+- Revised launch code on how to navigate into our app directory
