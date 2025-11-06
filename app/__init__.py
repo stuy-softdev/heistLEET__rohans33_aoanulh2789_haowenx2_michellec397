@@ -17,8 +17,8 @@ DB_FILE="discobandit.db"
 db = sqlite3.connect(DB_FILE) #open if file exists, otherwise create
 c = db.cursor()
 
-c.execute("create table if not exists students(name text, age integer, id integer primary key);")
-c.execute("create table if not exists courses(code text, mark integer, id integer);")
+c.execute("create table if not exists entries(user_id integer, title text, post text, timestamp date, last_edit date, id integer primary key);")
+c.execute("create table if not exists account(username text, email text, password text, first_name text, last_name text, img_path text, id integer primary key);")
 
 app = Flask(__name__)  # create Flask object
 app.secret_key = b'sixseven'
@@ -45,7 +45,7 @@ def login():
     if request.method == 'POST':
         session.permanent = True
         session['username'] = request.form['id']
-        
+
         return redirect(url_for('home'))
     else:
         return render_template('login.html')
