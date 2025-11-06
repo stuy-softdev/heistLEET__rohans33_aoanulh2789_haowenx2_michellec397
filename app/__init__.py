@@ -22,8 +22,8 @@ c.execute("create table if not exists courses(code text, mark integer, id intege
 
 app = Flask(__name__)  # create Flask object
 app.secret_key = b'sixseven'
-crypto = crypt("sixseven")
-
+key = crypt.generate_key()
+crypto = crypt(key)
 def fetch_creds(usr, pass_unc):
     accounts = c.execute(f"select name from students where username = {usr} and password = {crypto.encrypt(pass_unc)};")
     if len(accounts = 0):
