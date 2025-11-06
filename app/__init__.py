@@ -22,7 +22,7 @@ c.execute("create table if not exists courses(code text, mark integer, id intege
 
 app = Flask(__name__)  # create Flask object
 app.secret_key = b'sixseven'
-c = crypt("sixseven")
+crypto = crypt("sixseven")
 
 def fetch_creds(usr, pass_unc):
     accounts = c.execute(f"select name from students where username = {usr} and password = {c.encrypt(pass_unc)};")
