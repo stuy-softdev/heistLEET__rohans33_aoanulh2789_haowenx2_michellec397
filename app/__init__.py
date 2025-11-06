@@ -25,7 +25,7 @@ app.secret_key = b'sixseven'
 crypto = crypt("sixseven")
 
 def fetch_creds(usr, pass_unc):
-    accounts = c.execute(f"select name from students where username = {usr} and password = {c.encrypt(pass_unc)};")
+    accounts = c.execute(f"select name from students where username = {usr} and password = {crypto.encrypt(pass_unc)};")
     if len(accounts = 0):
         return -1
     return accounts[0]
