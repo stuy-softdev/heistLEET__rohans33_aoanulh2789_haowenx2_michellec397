@@ -50,3 +50,8 @@ AoanulH -- 2025-11-5 8:58
 - Revised steps on how to activate users virtual enviornment (more descriptive)
 - Revised step on how to install required dependencies (install guide stated the wrong directory for where the requirements.txt file was located)
 - Revised launch code on how to navigate into our app directory
+
+RohanS -- 2025-11-6 11:44
+- Auth fixed/incorporated
+- requirements.txt updated
+- Table schemas properly added in
