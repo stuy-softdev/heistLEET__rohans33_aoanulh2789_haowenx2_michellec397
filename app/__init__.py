@@ -25,13 +25,13 @@ app.secret_key = b'sixseven'
 key = crypt.generate_key()
 crypto = crypt(key)
 def fetch_creds(usr, pass_unc):
-    accounts = c.execute(f"select name from account where username = {usr} and password = {crypto.encrypt(pass_unc)};")
+    accounts = c.execute(f"select name from account where username = {usr} and password = {crypto.encrypt(pass_unc.encode())};")
     if len(accounts = 0):
         return 0
     return 1
 
 def set_creds(usr, pass_unc):
-    accounts = c.execute(f"insert into account values (username, password)({usr}, {crypto.encrypt(pass_unc)};")
+    accounts = c.execute(f"insert into account values (username, password)({usr}, {crypto.encrypt(pass_unc.encode())};")
     if len(accounts = 0):
         return 0
     return 1
@@ -49,16 +49,28 @@ def login():
     if 'username' in session:
         return redirect(url_for('home'))
     if request.method == 'POST':
-        if (fetch_creds()):
+        if (fetch_creds(request.form['id'], request.form['pass'])):
             session.permanent = True
             session['username'] = request.form['id']
-            session['password'] = crypto.encrypt(request.form['pass'])
+            session['password'] = crypto.encrypt(request.form['pass'].encode())
             return redirect(url_for('home'))
         else:
             return redirect(url_for('login'))
     else:
         return render_template('login.html')
 
+@app.route("/register", methods=['GET', 'POST'])
+def register():
+    if 'username' in session:
+        return redirect(url_for('home'))
+    if request.method == 'POST':
+        session.permanent = True
+        session['username'] = request.form['id']
+        session['password'] = crypto.encrypt(request.form['pass'])
+        set_creds(request.form['id'], request.form['pass'])
+        return redirect(url_for('login'))
+    else:
+        return render_template('login.html')
 
 @app.route("/home", methods=['GET', 'POST'])
 def home():
