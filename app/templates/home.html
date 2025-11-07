@@ -1,12 +1,19 @@
 <!Doctype html>
 <html>
   <head>
-    <title> {{user}} PAGE </title>
+    <title> {{user}}'s homepage </title>
   </head>
   <body>
+
     <h1>
-      Vibe coded blochain ai b2b saas for ycombinator
+    WELCOME, {{user}}
     </h1>
+
+    <h2>
+      Go make some blogs or read some!
+    </h2>
+    <button onclick="location.href='create.html'">Create New Blog</button>
+    <button onclick="location.href='account.html'">View My Posts</button>
     <br>
     <h2>
         We value your services
@@ -16,7 +23,6 @@
     </h3>
     <br>
     <p> If you would like to logout, please click below </p>
-    <button onclick="location.href='create.html'">Create Blog</button>
 	<form action="/logout" method="POST">
 		<input type="submit" value="signout">
     </form>
