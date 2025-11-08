@@ -10,32 +10,34 @@ from flask import render_template  # facilitate jinja templating
 from flask import request, redirect, url_for  # facilitate form submission
 from flask import session
 import sqlite3
-from cryptography.fernet import Fernet as crypt
+from werkzeug.security import generate_password_hash, check_password_hash
 
 DB_FILE="discobandit.db"
 
-db = sqlite3.connect(DB_FILE) #open if file exists, otherwise create
+db = sqlite3.connect(DB_FILE, check_same_thread=False) #open if file exists, otherwise create
+db.row_factory = sqlite3.Row
 c = db.cursor()
 
 c.execute("create table if not exists entries(user_id integer, title text, post text, timestamp date, last_edit date, id integer primary key);")
 c.execute("create table if not exists account(username text, email text, password text, first_name text, last_name text, img_path text, id integer primary key);")
+db.commit()
 
 app = Flask(__name__)  # create Flask object
 app.secret_key = b'sixseven'
-key = crypt.generate_key()
-crypto = crypt(key)
 def fetch_creds(usr, pass_unc):
-    accounts = c.execute(f"select name from account where username = {usr} and password = {crypto.encrypt(pass_unc.encode())};")
-    if len(accounts = 0):
-        return 0
-    return 1
+    account = c.execute("select * from account where username = ?", (usr,)).fetchone()
+    if not account:
+        return False
+    return check_password_hash(account['password'], pass_unc)
 
 def set_creds(usr, pass_unc):
-    accounts = c.execute(f"insert into account values (username, password)({usr}, {crypto.encrypt(pass_unc.encode())};")
-    if len(accounts = 0):
-        return 0
-    return 1
-
+    print("a")
+    if c.execute("select * from account where username = ?", (usr,)).fetchone() is None:
+        c.execute("insert into account (username, password) values (?, ?);", (usr, generate_password_hash(pass_unc,method='pbkdf2')))
+        db.commit()
+        return True
+    else:
+        return False
 @app.route("/", methods=['GET', 'POST'])
 def response():
     if 'username' in session:
@@ -49,10 +51,9 @@ def login():
     if 'username' in session:
         return redirect(url_for('home'))
     if request.method == 'POST':
-        if (fetch_creds(request.form['id'], request.form['pass'])):
+        if fetch_creds(request.form['id'], request.form['pass']):
             session.permanent = True
             session['username'] = request.form['id']
-            session['password'] = crypto.encrypt(request.form['pass'].encode())
             return redirect(url_for('home'))
         else:
             return redirect(url_for('login'))
@@ -64,13 +65,10 @@ def register():
     if 'username' in session:
         return redirect(url_for('home'))
     if request.method == 'POST':
-        session.permanent = True
-        session['username'] = request.form['id']
-        session['password'] = crypto.encrypt(request.form['pass'])
-        set_creds(request.form['id'], request.form['pass'])
+        set_creds(request.form['username'], request.form['pass'])
         return redirect(url_for('login'))
     else:
-        return render_template('login.html')
+        return render_template('signup.html')
 
 @app.route("/home", methods=['GET', 'POST'])
 def home():
