@@ -31,13 +31,17 @@ def fetch_creds(usr, pass_unc):
     return check_password_hash(account['password'], pass_unc)
 
 def set_creds(usr, pass_unc):
-    print("a")
     if c.execute("select * from account where username = ?", (usr,)).fetchone() is None:
         c.execute("insert into account (username, password) values (?, ?);", (usr, generate_password_hash(pass_unc,method='pbkdf2')))
         db.commit()
         return True
     else:
         return False
+
+def post(username, title, post):
+    c.execute("insert into entries (user_id, title, post) values (?, ?, ?);",(username, title, post))
+    db.commit()
+
 @app.route("/", methods=['GET', 'POST'])
 def response():
     if 'username' in session:
@@ -74,6 +78,16 @@ def register():
 def home():
     if 'username' in session:
         return render_template('home.html', username=session['username'])
+    else:
+        return redirect(url_for('login'))
+
+@app.route("/new", methods=['GET', 'POST'])
+def create():
+    if 'username' in session:
+        if request.method == 'POST':
+            post(session["username"], request.form['title'], request.form['content'])
+            return redirect(url_for('home'))
+        return render_template('create.html', username=session['username'])
     else:
         return redirect(url_for('login'))
 
