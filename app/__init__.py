@@ -9,6 +9,7 @@ from flask import Flask  # facilitate flask webserving
 from flask import render_template  # facilitate jinja templating
 from flask import request, redirect, url_for  # facilitate form submission
 from flask import session
+from datetime import datetime
 import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -38,9 +39,16 @@ def set_creds(usr, pass_unc):
     else:
         return False
 
-def post(username, title, post):
-    c.execute("insert into entries (user_id, title, post) values (?, ?, ?);",(username, title, post))
-    db.commit()
+def post(username, title, content):
+    #fetch user id from the account table
+    user = c.execute("select id from account where username = ?"), (username,).fetchone()
+    if user:
+        user_id = user['id']
+        current_dateTime = datetime.datetime.now()
+        print(current_dateTime)#should print year, month, day, hour, minute, second, etc.
+        c.execute("""insert into entries (user_id, title, post, timestamp, last_edit)
+         values (?, ?, ?, ?, ?);""",(username, title, content, timestamp, timestamp))
+         db.commit()
 
 @app.route("/", methods=['GET', 'POST'])
 def response():
@@ -77,6 +85,8 @@ def register():
 @app.route("/home", methods=['GET', 'POST'])
 def home():
     if 'username' in session:
+        #should post everything to home page in order of dates
+        posts = c.execute("SELECT * FROM entries ORDER BY timestamp DESC;").fetchall()
         return render_template('home.html', username=session['username'])
     else:
         return redirect(url_for('login'))
