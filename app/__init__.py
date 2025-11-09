@@ -87,7 +87,7 @@ def home():
     if 'username' in session:
         #should post everything to home page in order of dates
         posts = c.execute("SELECT * FROM entries ORDER BY timestamp DESC;").fetchall()
-        return render_template('home.html', username=session['username'])
+        return render_template('home.html', username=session['username'], posts=posts)
     else:
         return redirect(url_for('login'))
 
@@ -107,6 +107,14 @@ def logout():
         session.pop('username', None)
         return render_template('logout.html')
     return redirect(url_for('login'))
+
+@app.route("/view/<int:post_id>")
+def view_post(post_id):
+    post = c.execute("SELECT * FROM entries WHERE id = ?", (post_id,)).fetchone()
+    if post:
+        return render_template('view.html', title=post['title'], user_id=post['user_id'], content=post['post'])
+    else:
+        return "Post not found", 404
 
 
 if __name__ == "__main__":  # false if this file imported as module

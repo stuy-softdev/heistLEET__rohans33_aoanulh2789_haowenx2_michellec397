@@ -1,13 +1,11 @@
 <!Doctype html>
 <html>
   <head>
-    <title> {{user}}'s homepage </title>
+    <title> {{ user }}'s homepage </title>
   </head>
   <body>
 
-    <h1>
-    WELCOME, {{user}}
-    </h1>
+    <h1> WELCOME, {{ user }}</h1>
 
     <h2>
       Go make some blogs or read some!
@@ -15,12 +13,24 @@
     <button onclick="location.href='/new'">Create New Blog</button>
     <button onclick="location.href='/account'">View My Posts</button>
     <br>
-    <h2>
-        We value your services
-    </h2>
-    <h3>
-		Please rate us on Piazza
-    </h3>
+
+    <h2>Check Out Some Recent Posts</h2>
+
+    {% if posts %}
+    <ul>
+      {% for post in posts %}
+      <li>
+        <a href="{{ url_for('view_post', post_id=post['id']) }}"{{ post['title'] }}</a>
+          by {{ post['user_id'] }} on {{ post ['timestamp'] }}
+        </li>
+        {% else %}
+        <p> No posts yet :(. Go write the first one </p>
+        {% endif %}
+
+        <hr>
+
+    <h3> We value your services</h3>
+    <h3>Please rate us on Piazza</h3>
     <br>
     <p> If you would like to logout, please click below </p>
 	<form action="/logout" method="POST">

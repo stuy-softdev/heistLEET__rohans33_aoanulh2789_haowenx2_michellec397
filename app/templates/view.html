@@ -1,15 +1,15 @@
 <!Doctype html>
 <html>
   <head>
-    <title> View Articles </title>
+    <title> View Article </title>
   </head>
   <body>
-    <h1>
-      {{title}}
-    </h1>
+    <h1>{{ title }}</h1>
+
     <br>
-    <h3> by: {{user_id}} </h3>
+    <h3> by: {{ user_id }} </h3>
+    <p> {{ content }}
     <br>
-    <!-- Request content -->
+    <button onclick="location.href='/home'">Back to Home</button>
   </body>
 </html>
