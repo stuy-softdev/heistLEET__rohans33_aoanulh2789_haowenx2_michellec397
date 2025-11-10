@@ -46,10 +46,10 @@ def post(username, title, content):
     db.commit()
 
 
-def update_post(username, title, content, timestamp):
+def update_post(username, title, content, timestamp, id):
     current_dateTime = datetime.now()
-    c.execute("""insert into entries (user_id, title, post, last_edit) values (?, ?, ?, ?, ?) where timestamp = ?;""",
-              (username, title, content, current_dateTime, current_dateTime), (timestamp,))
+    c.execute("""update entries set title=?, post=?, last_edit=? where id = ?;""",
+              (title, content, timestamp, id))
     db.commit()
 
 
@@ -113,12 +113,28 @@ def logout():
 
 @app.route("/view/<int:post_id>")
 def view_post(post_id):
-    post = c.execute("SELECT * FROM entries WHERE id = ?", (post_id,)).fetchone()
-    if post:
-        return render_template('view.html', title=post['title'], user_id=post['user_id'], content=post['post'])
+    if 'username' in session:
+        post = c.execute("SELECT * FROM entries WHERE id = ?", (post_id,)).fetchone()
+        if post:
+            return render_template('view.html', title=post['title'], user_id=post['user_id'], content=post['post'])
+        else:
+            return "Post not found", 404
     else:
-        return "Post not found", 404
+        return redirect(url_for('login'))
 
+@app.route("/edit/<int:post_id>", methods=['GET', 'POST'])
+def edit_post(post_id):
+    if 'username' in session:
+        if request.method == 'POST':
+            update_post(session["username"], request.form['title'], request.form['content'],timestamp=datetime.now(), id=post_id)
+            return redirect(url_for('view_post', post_id=request.form['id']))
+        post = c.execute("SELECT * FROM entries WHERE id = ?", (post_id,)).fetchone()
+        if post:
+            return render_template('edit.html', title=post['title'], user_id=post['user_id'], content=post['post'], id=post['id'])
+        else:
+            return "Post not found", 404
+    else:
+        return redirect(url_for('login'))
 
 if __name__ == "__main__":  # false if this file imported as module
     app.debug = True  # enable PSOD, auto-server-restart on code chg
