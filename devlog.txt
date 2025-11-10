@@ -70,4 +70,8 @@ RohanS -- 2025-11-9 12:00
 AoanulH -- 2025-11-10 02:03
 - Improved login page
 
-RohanS --
+RohanS -- 2025-11-10 03:06
+- Added in account pages
+- MAJOR debugging
+- added in proper correspondence where possible to design doc
+- functionality complete
