@@ -40,15 +40,10 @@ def set_creds(usr, pass_unc):
         return False
 
 def post(username, title, content):
-    #fetch user id from the account table
-    user = c.execute("select id from account where username = ?"), (username,).fetchone()
-    if user:
-        user_id = user['id']
-        current_dateTime = datetime.datetime.now()
-        print(current_dateTime)#should print year, month, day, hour, minute, second, etc.
-        c.execute("""insert into entries (user_id, title, post, timestamp, last_edit)
-         values (?, ?, ?, ?, ?);""",(username, title, content, timestamp, timestamp))
-         db.commit()
+    current_dateTime = datetime.now()
+    print(current_dateTime)#should print year, month, day, hour, minute, second, etc.
+    c.execute("""insert into entries (user_id, title, post, timestamp, last_edit) values (?, ?, ?, ?, ?);""",(username, title, content, current_dateTime, current_dateTime))
+    db.commit()
 
 @app.route("/", methods=['GET', 'POST'])
 def response():

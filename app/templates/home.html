@@ -23,6 +23,7 @@
         <a href="{{ url_for('view_post', post_id=post['id']) }}"{{ post['title'] }}</a>
           by {{ post['user_id'] }} on {{ post ['timestamp'] }}
         </li>
+        {% endfor %}
         {% else %}
         <p> No posts yet :(. Go write the first one </p>
         {% endif %}
