@@ -4,11 +4,13 @@
     <title> View Article </title>
   </head>
   <body>
-    <h1>{{ title }}</h1>
-
+    <h1>{{ post['title'] }}</h1>
+    {% if edit %}
+    <button onclick="location.href='{{ url_for('edit_post', post_id=post['id']) }}'">Edit</button>
+    {% endif %}
     <br>
-    <h3> by: {{ user_id }} </h3>
-    <p> {{ content }}
+    <h3> by: {{ post['user_id'] }} </h3>
+    <p> {{ post['post'] }}</p>
     <br>
     <button onclick="location.href='/home'">Back to Home</button>
   </body>

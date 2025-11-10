@@ -55,3 +55,19 @@ RohanS -- 2025-11-6 11:44
 - Auth fixed/incorporated
 - requirements.txt updated
 - Table schemas properly added in
+
+MichelleC -- 2025-11-9 03:40
+- added a timestamp feature in py file using from datetime import datetime
+- updated def post so it fetches user id from the account table and put in the rest of the entry variables and made a current_dateTime variable cause we need that
+- updated def home() so it should display all the posts from entries table in order of datetime
+- added a def view_post(post_id) function to render whatever posts a user clicks on from home.html and generates the content into the view.html page
+- added a Jinja2 template code in home.html so that it should list whatever posts are made in order or no posts if no posts were made
+- updated view.html so that it displays content and a return to home button
+
+RohanS -- 2025-11-9 12:00
+- added editing functionality
+
+AoanulH -- 2025-11-10 02:03
+- Improved login page
+
+RohanS --

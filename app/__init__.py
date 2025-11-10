@@ -4,6 +4,7 @@
 # P00
 # 2025-10-28
 # time spent: 0.67
+from operator import truediv
 
 from flask import Flask  # facilitate flask webserving
 from flask import render_template  # facilitate jinja templating
@@ -20,20 +21,19 @@ db.row_factory = sqlite3.Row
 c = db.cursor()
 
 c.execute("create table if not exists entries(user_id integer, title text, post text, timestamp date, last_edit date, id integer primary key);")
-c.execute("create table if not exists account(username text, email text, password text, first_name text, last_name text, img_path text, id integer primary key);")
+c.execute("create table if not exists account(username text, email text, password text, first_name text, last_name text, id integer primary key);")
 db.commit()
 
 app = Flask(__name__)  # create Flask object
 app.secret_key = b'sixseven'
-def fetch_creds(usr, pass_unc):
+def fetch_creds(usr):
     account = c.execute("select * from account where username = ?", (usr,)).fetchone()
     if not account:
         return False
-    return check_password_hash(account['password'], pass_unc)
-
-def set_creds(usr, pass_unc):
+    return account
+def set_creds(usr, email, pass_unc, first_name, last_name):
     if c.execute("select * from account where username = ?", (usr,)).fetchone() is None:
-        c.execute("insert into account (username, password) values (?, ?);", (usr, generate_password_hash(pass_unc,method='pbkdf2')))
+        c.execute("insert into account (username, email, password, first_name, last_name) values (?, ?, ?, ?, ?);", (usr, email, generate_password_hash(pass_unc,method='pbkdf2'), first_name, last_name))
         db.commit()
         return True
     else:
@@ -41,15 +41,14 @@ def set_creds(usr, pass_unc):
 
 def post(username, title, content):
     current_dateTime = datetime.now()
-    print(current_dateTime)#should print year, month, day, hour, minute, second, etc.
     c.execute("""insert into entries (user_id, title, post, timestamp, last_edit) values (?, ?, ?, ?, ?);""",(username, title, content, current_dateTime, current_dateTime))
     db.commit()
 
 
-def update_post(username, title, content, timestamp, id):
+def update_post(title, content, id):
     current_dateTime = datetime.now()
     c.execute("""update entries set title=?, post=?, last_edit=? where id = ?;""",
-              (title, content, timestamp, id))
+              (title, content, current_dateTime, id))
     db.commit()
 
 
@@ -66,7 +65,10 @@ def login():
     if 'username' in session:
         return redirect(url_for('home'))
     if request.method == 'POST':
-        if fetch_creds(request.form['id'], request.form['pass']):
+        creds = fetch_creds(request.form['id'])
+        if not creds:
+            return redirect(url_for('login'))
+        elif check_password_hash(creds['password'], request.form['pass']):
             session.permanent = True
             session['username'] = request.form['id']
             return redirect(url_for('home'))
@@ -80,7 +82,7 @@ def register():
     if 'username' in session:
         return redirect(url_for('home'))
     if request.method == 'POST':
-        set_creds(request.form['username'], request.form['pass'])
+        set_creds(request.form['username'], request.form['email'], request.form['pass'], request.form['fname'], request.form['lname'])
         return redirect(url_for('login'))
     else:
         return render_template('signup.html')
@@ -91,6 +93,16 @@ def home():
         #should post everything to home page in order of dates
         posts = c.execute("SELECT * FROM entries ORDER BY timestamp DESC;").fetchall()
         return render_template('home.html', username=session['username'], posts=posts)
+    else:
+        return redirect(url_for('login'))
+
+@app.route("/account/<username>", methods=['GET', 'POST'])
+def account(username):
+    if 'username' in session:
+        #should post everything to home page in order of dates
+        posts = c.execute("SELECT * FROM entries WHERE user_id = ? ORDER BY timestamp DESC;", (username,)).fetchall()
+        details = fetch_creds(session['username'])
+        return render_template('account.html', details=details, posts=posts)
     else:
         return redirect(url_for('login'))
 
@@ -111,12 +123,15 @@ def logout():
         return render_template('logout.html')
     return redirect(url_for('login'))
 
-@app.route("/view/<int:post_id>")
+@app.route("/post/<int:post_id>")
 def view_post(post_id):
     if 'username' in session:
         post = c.execute("SELECT * FROM entries WHERE id = ?", (post_id,)).fetchone()
         if post:
-            return render_template('view.html', title=post['title'], user_id=post['user_id'], content=post['post'])
+            edit = False
+            if session['username'] == post['user_id']:
+                edit = True
+            return render_template('view.html', post=post,edit=edit)
         else:
             return "Post not found", 404
     else:
@@ -124,11 +139,11 @@ def view_post(post_id):
 
 @app.route("/edit/<int:post_id>", methods=['GET', 'POST'])
 def edit_post(post_id):
-    if 'username' in session:
+    post = c.execute("SELECT * FROM entries WHERE id = ?", (post_id,)).fetchone()
+    if 'username' in session and session['username'] == post['user_id']:
         if request.method == 'POST':
-            update_post(session["username"], request.form['title'], request.form['content'],timestamp=datetime.now(), id=post_id)
-            return redirect(url_for('view_post', post_id=request.form['id']))
-        post = c.execute("SELECT * FROM entries WHERE id = ?", (post_id,)).fetchone()
+            update_post(request.form['title'], request.form['content'], id=post_id)
+            return redirect(url_for('view_post', post_id=post_id))
         if post:
             return render_template('edit.html', title=post['title'], user_id=post['user_id'], content=post['post'], id=post['id'])
         else:
