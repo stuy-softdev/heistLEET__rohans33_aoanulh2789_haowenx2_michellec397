@@ -45,6 +45,14 @@ def post(username, title, content):
     c.execute("""insert into entries (user_id, title, post, timestamp, last_edit) values (?, ?, ?, ?, ?);""",(username, title, content, current_dateTime, current_dateTime))
     db.commit()
 
+
+def update_post(username, title, content, timestamp):
+    current_dateTime = datetime.now()
+    c.execute("""insert into entries (user_id, title, post, last_edit) values (?, ?, ?, ?, ?) where timestamp = ?;""",
+              (username, title, content, current_dateTime, current_dateTime), (timestamp,))
+    db.commit()
+
+
 @app.route("/", methods=['GET', 'POST'])
 def response():
     if 'username' in session:
